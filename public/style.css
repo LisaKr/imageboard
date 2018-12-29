@@ -1,0 +1,349 @@
+/*////////////GENERAL LOOK//////////////*/
+* {
+    font-family: "Montserrat";
+}
+
+body {
+    margin: 0;
+    background: #3aafa9;
+}
+
+h1,
+h4 {
+    text-align: center;
+}
+
+h4,
+h3,
+h2 {
+    color: #17252a;
+}
+/*/////////////////////////////////*/
+
+/*////////////HEADER//////////////*/
+h1 {
+    font-family: "Roboto", Sans-Serif;
+    /* word-spacing: 20px; */
+    font-size: 64px;
+    font-weight: bold;
+    margin: 0;
+    color: #feffff;
+}
+
+.header {
+    margin: 0;
+    padding: 5px;
+    background: #17252a;
+}
+/*/////////////////////////////////*/
+
+/*////////////BUTTONS//////////////*/
+button {
+    font-size: 1em;
+    border: 1px solid black;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#plus {
+    background: #feffff;
+    width: 80px;
+    font-size: 16px;
+    position: fixed;
+    z-index: 99;
+    top: 85%;
+    left: 92%;
+    border-radius: 100%;
+    height: 80px;
+    border: 1px solid #2b7a78;
+    cursor: pointer;
+}
+
+.mediumButton {
+    width: 150px;
+    font-size: 18px;
+    margin: 10px;
+    background-color: #2b7a78;
+    color: #feffff;
+}
+
+.mediumButton.more {
+    background: #def2f1;
+    color: #2b7a78;
+}
+
+.replyButton {
+    width: 200px;
+    font-size: 18px;
+    background-color: #2b7a78;
+    color: #feffff;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.closing-button {
+    float: right;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border: none;
+}
+
+.closing-button.extra {
+    padding: 25px;
+}
+
+.closing-button.comm {
+    position: absolute;
+    top: 1%;
+    left: 92%;
+}
+
+.closing-button.reply {
+    position: absolute;
+    top: 4%;
+    left: 93%;
+}
+
+/*/////////BUTTON UNDERLINE/////////*/
+.mediumButton:after,
+.replyButton:after {
+    display: block;
+    content: "";
+    border-bottom: solid 2px #feffff;
+    transform: scaleX(0);
+    transition: transform 0.25s ease-in-out;
+}
+.mediumButton:hover:after,
+.replyButton:hover:after {
+    transform: scaleX(1);
+}
+
+/*EXTRA COLOR FOR THE MORE BUTTON*/
+.mediumButton.more:after {
+    border-bottom: solid 2px #2b7a78;
+}
+
+/*WIGGLE FOR THE ROUND BUTTON*/
+#plus:hover {
+    animation: wiggle 1s ease;
+    border: none;
+}
+
+@keyframes wiggle {
+    0% {
+        transform: rotate(10deg);
+    }
+    25% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(20deg);
+    }
+    75% {
+        transform: rotate(-5deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+/**/
+
+/*/////////////////////////////////*/
+
+/*///////////////FORMS//////////////////////*/
+.addingMenu {
+    z-index: 100;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #feffff;
+    border: 1px solid #17252a;
+    padding: 10px;
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+}
+
+.reply-form {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    background: #feffff;
+    color: #283c63;
+    padding: 10px;
+    border: 1px solid black;
+}
+/*/////////////////////////////////*/
+
+/*////////////IMAGES////////////*/
+.img-container {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    position: absolute;
+}
+
+.image-div {
+    width: 350px;
+    height: 350px;
+    display: inline-block;
+    background: #feffff;
+    margin: 5px;
+    border: 1px solid #3aafa9;
+    flex: auto;
+    position: relative;
+    border: 1px solid #feffff;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    flex-grow: 1;
+}
+
+/*to force the line break before the more button*/
+break {
+    flex-basis: 100%;
+    width: 0px;
+    height: 0px;
+    overflow: hidden;
+}
+/*/////////////////////////////////*/
+
+/*////////////HOVER ON IMAGES////////////*/
+
+.description {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    color: #ebf0f6;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.description:hover {
+    opacity: 1;
+}
+
+.title {
+    font-size: 24px;
+}
+/*/////////////////////////////////*/
+
+/*/////////////INPUT FIELDS///////////*/
+input[type="text"],
+textarea[type="text"] {
+    border: 0;
+    outline: 0;
+    border-bottom: 2px solid #17252a;
+    background: inherit;
+    font-size: 1em;
+}
+
+::placeholder {
+    color: #17252a;
+    font-size: 1em;
+    font-weight: 800;
+}
+#test {
+    color: #17252a;
+    font-size: 1em;
+}
+/*///////////////////////*/
+
+/*/////////////MODAL///////////*/
+
+.modal {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #feffff;
+    z-index: 99;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.image-and-nav {
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+}
+
+/*big version of the image*/
+.big {
+    margin-top: 20px;
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border: 1px solid #3aafa9;
+}
+
+/*navigation menu*/
+.nav {
+    width: 100%;
+    height: 100px;
+}
+
+.prev {
+    float: left;
+    width: 100px;
+}
+
+.next {
+    float: right;
+    width: 100px;
+}
+/**/
+
+.image-info {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.comment-container {
+    width: 50%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.comment-display {
+    background: inherit;
+    margin: 20px;
+    padding: 1.3em;
+    text-align: left;
+    color: #17252a;
+    border: 1px solid black;
+}
+.replies {
+    background: #feffff;
+    position: relative;
+}
+
+.reply-container {
+    background: #feffff;
+    color: #17252a;
+    padding: 10px;
+    margin: 20px;
+    width: 90%;
+    border: 1px solid black;
+}
+
+.text {
+    font-size: 20px;
+}
+
+.additional {
+    font-size: 15px;
+}

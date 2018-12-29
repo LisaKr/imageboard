@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Imageboard</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link href='http://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=League+Script' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora|Roboto:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+</head>
+
+<body>
+    <!-- this interacts with Vue -->
+    <div id="main">
+        <div class="header">
+            <h1>slice of life</h1>
+        </div>
+
+
+        <div class="addingButtonDiv">
+            <img src="plus.png" class="roundButton" id="plus" @click="showMenu" />
+        </div>
+
+
+        <form v-if="menuIsShown" class="addingMenu">
+            <img @click="closeMenu" class="closing-button" src="/closing.png" />
+            <h3>Add another image! </h3>
+            <br /><br /><br /><br />
+
+            <!-- v-model binds it to the property in data -->
+            <input v-model="form.title" placeholder="title" type="text" name="title" />
+            <input v-model="form.description" placeholder="description" type="text" name="description" />
+            <input v-model="form.username" placeholder="username" type="text" name="username" />
+            <input id="test" type="file" accept="image/*" @change="handleFileChange" />
+            <br />
+            <button @click="uploadFile" class="mediumButton"> Upload </button>
+        </form>
+
+
+        <!-- showing all pictures -->
+        <div class="img-container">
+            <div class="image-div" v-for="image in images">
+                <img :src="image.url" :id="image.id" />
+                <a :href="'#' + image.id">
+                    <div class="description" :id="image.id" @click="toggleComponent">
+                        <br /><br /><br /><br />
+                        <span class="title">{{image.title}}</span> <br />
+                        <br /><br /><br />
+                        by {{image.username}}
+                        <br /><br />
+                        Click to learn more
+                    </div>
+                </a>
+            </div>
+            <!-- to force the line break in the flexbox -->
+            <break></break>
+
+            <button v-if="thereAreMorePics" @click="getMorePictures" class="mediumButton more"> More </button>
+        </div>
+
+
+
+        <!-- first name is name in props and the second is one from the main element (data) -->
+        <!-- this listens for the message from the child and on arrival closes the component for real  -->
+        <!-- the idOfImagethatWasClicked refers to the main data property which will be updated with the image id once we click on the image
+        we are passing the main data to prop. in the prop it's called id-->
+        <pop-up v-if="idOfImagethatWasClicked" :id="idOfImagethatWasClicked" @close-it="closingIt">
+        </pop-up>
+    </div>
+    <!-- end of the main element -->
+
+
+
+    <!-- beginning of the modal -->
+    <script id="my-template" type="text/x-template">
+
+        <!-- the whole pop-up containing image, description and comments -->
+        <div class="modal">
+            <!-- this event sends a message to the parent to close it for real  -->
+            <img @click="closeComponent" class="closing-button extra" src="/closing.png"/>
+
+            <div class="image-and-nav">
+                <!-- bigger version of an image -->
+                <img class="big" :src="image.url" />
+
+                <!-- previous and next buttons -->
+                <div class="nav">
+                    <a :href="'#' + image.prev_id">
+                        <button v-if="image.prev_id" class="prev mediumButton" :id="image.prev_id" @click="getNeighbor"> Previous </button>
+                    </a>
+                    <a :href="'#' + image.next_id">
+                        <button v-if="image.next_id" class="next mediumButton" :id="image.next_id" @click="getNeighbor"> Next </button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="image-info">
+                <h2>{{image.title}} </h2>
+                {{image.description}}<br /><br />
+                Uploaded by {{image.username}} on {{image.created_at}}
+            </div>
+
+            <br /><br /><br />
+
+            <div class="comment-form">
+                <form>
+                    <h3>Add a comment</h3>
+                    <br />
+                    <input v-model="addedComment.username" placeholder="username" type="text" name="username"/><br /><br />
+                    <textarea v-model="addedComment.commentText" placeholder="comment" type="text" name="comment"/><br />
+                    <br /><br />
+                    <button @click="sendComment" class="mediumButton"> Submit </button>
+                </form>
+            </div>
+
+            <button v-if="comments.length>0" @click="showComments" class="mediumButton">Show all comments</button>
+            <br /><br />
+
+                <div class="comment-container" v-if="commentsShown">
+                    <img @click="hideComments" class="closing-button comm" src="/closing.png" />
+
+                    <div class="comment-div" v-for="comment in comments">
+                            <h4 class="comment-display">
+
+                                <span class="text">{{comment.comment}}</span> <br /><br /> <span class="additional">by {{comment.username}} on {{comment.created_at}}</span>
+                                <br /><br />
+
+                                <button @click="showReplyForm" :id="comment.id" class="replyButton">Add a reply</button>
+
+                                <form v-if="commentID == comment.id && replyFormShown" class="reply-form">
+                                    <img @click="hideReplyForm" class="closing-button" src="/closing.png" />
+                                    <h4>
+                                        Add a reply
+                                    </h4>
+                                <br />
+                                    <input v-model="addedReply.username" placeholder="username" type="text" name="username"/><br /><br />
+                                    <textarea v-model="addedReply.replyText" placeholder="reply" type="text" name="reply"/><br />
+                                    <br /><br />
+                                    <button @click="addReply" :id="comment.id" class="mediumButton">Submit</button>
+                                </form>
+
+                                <button v-if="replies.length>0 && showReplyButton" @click="showReplies(comment.id)" :id="comment.id" class="replyButton">Show all replies</button>
+
+                                <div class="replies">
+                                    <img @click="hideReplies" class="closing-button reply" src="/closing.png" v-if = "repliesShown && comment.id === commentID"/>
+
+                                    <div class="reply-container" v-if = "comment.id === reply.comment_id && repliesShown && commentID == reply.comment_id" v-for = "reply in replies">
+
+                                            <span class="text">{{reply.reply}}</span> <br /><br /> <span class="additional">by {{reply.username}}</span>
+                                    </div>
+                                </div>
+                            </h4>
+                    </div>
+                </div>
+        </div>
+    </script>
+
+    <script src="/js/vue.js"></script>
+    <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
+
+
+</body>
+
+</html>
