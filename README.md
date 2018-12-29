@@ -12,7 +12,7 @@ Tech stack
 Overview
 --------
 #### Short description 
-Slice of Life Image Board is an Instagram-style full stack single page application that allows users to upload pictures to a general board, as well as comment on other people's pictures and reply to others' comments. Built as a student project for Spiced Academy in 5 days.
+Slice of Life Image Board is an Instagram-style single page application that allows users to upload pictures to a general board, as well as comment on other people's pictures and reply to others' comments. Built as a student project for Spiced Academy in 5 days.
 
 #### Walkthrough
 The landing page shows the full gallery of images posted by all the users. 
