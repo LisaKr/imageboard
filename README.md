@@ -15,7 +15,7 @@ Overview
 Slice of Life Image Board is an Instagram-style single page application that allows users to upload pictures to a general board, as well as comment on other people's pictures and reply to others' comments. Built as a student project for Spiced Academy in 5 days.
 
 #### Walkthrough
-The landing page shows the full gallery of images posted by all the users. 
+The landing page shows the full gallery of images posted by all users. 
 
 <p align="center">
   <img src="preview1.png"/>
@@ -23,7 +23,7 @@ The landing page shows the full gallery of images posted by all the users.
 
 On the bottom of the page there is a "more" button which loads the next set of images and disappears in case there are no more images to show.
 
-The user can also upload their own picture by clicking on the plus button in the bottom right corber. The user will need to enter their name, the title and the description of the picture. The picture will be added to the gallery and shown on the top.
+The user can also upload their own picture by clicking on the plus button in the bottom right corner. The user will need to enter their name, the title and the description of the picture. The picture will be added to the gallery and shown on the top.
 
 When not in use, the uploader remains hidden.
 
